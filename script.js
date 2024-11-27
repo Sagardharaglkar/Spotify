@@ -4,7 +4,7 @@ let curFolder;
 let valumeVal = 0;
 let path ="https://github.com/Sagardharaglkar/Spotify/";
 // console.log(window.location.origin);
-console.log("Push succsess");
+console.log("Push succsess2");
 
 const {origin} = window.location;
 // console.log(origin);
@@ -99,7 +99,7 @@ const playMusic = (track, pause = false) => {
 }
 
 async function displayAlbums() {
-    let a = await fetch(`${path}/songs/`);
+    let a = await fetch(`songs/`);
     let responce = await a.text();
     let div = document.createElement("div");
     div.innerHTML = responce;
@@ -114,7 +114,7 @@ async function displayAlbums() {
 
         if (e.href.includes("songs/")) {
             let folder = e.href.split("/").slice(-2)[0];
-            let a = await fetch(`${path}/songs/${folder}/info.json`);
+            let a = await fetch(`songs/${folder}/info.json`);
             let responce = await a.json();
             // console.log(responce);
             cardContainer.innerHTML = cardContainer.innerHTML + `<div data-folder="${folder}" class="card">
