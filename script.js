@@ -2,7 +2,7 @@ let currentSong = new Audio();
 let songs = [];
 let curFolder;
 let valumeVal = 0;
-let path ="http://127.0.0.1:3000/Spotify/";
+let path ="https://github.com/Sagardharaglkar/Spotify/";
 // console.log(window.location.origin);
 
 const {origin} = window.location;
@@ -14,7 +14,7 @@ const {origin} = window.location;
 async function getSongs(folder) {
     curFolder = folder;
     // let a = await fetch(`http://127.0.0.1:3000/Spotify/${folder}/`);
-    let a = await fetch(`${origin}/Spotify/${folder}/`);
+    let a = await fetch(`${path}/${folder}/`);
     // console.log(a);
     
     // let a = await fetch(`https://drive.google.com/drive/folders/1GXz5cC-6P8MCRD4R59mFEZjlb6kCVuew?usp=drive_link`);
@@ -98,7 +98,7 @@ const playMusic = (track, pause = false) => {
 }
 
 async function displayAlbums() {
-    let a = await fetch(`${origin}/Spotify/songs/`);
+    let a = await fetch(`${path}/songs/`);
     let responce = await a.text();
     let div = document.createElement("div");
     div.innerHTML = responce;
@@ -113,7 +113,7 @@ async function displayAlbums() {
 
         if (e.href.includes("songs/")) {
             let folder = e.href.split("/").slice(-2)[0];
-            let a = await fetch(`${origin}/Spotify/songs/${folder}/info.json`);
+            let a = await fetch(`${path}/songs/${folder}/info.json`);
             let responce = await a.json();
             // console.log(responce);
             cardContainer.innerHTML = cardContainer.innerHTML + `<div data-folder="${folder}" class="card">
