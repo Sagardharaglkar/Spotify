@@ -4,10 +4,10 @@ let curFolder;
 let valumeVal = 0;
 let path ="https://github.com/Sagardharaglkar/Spotify/";
 // console.log(window.location.origin);
-console.log("Push succsess2");
+console.log("Push succsess3");
 
 const {origin} = window.location;
-// console.log(origin);
+console.log(origin);
 
 // let path = "https://meek-alpaca-2d9fc7.netlify.app/";
 
