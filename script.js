@@ -14,7 +14,7 @@ const {origin} = window.location;
 async function getSongs(folder) {
     curFolder = folder;
     // let a = await fetch(`http://127.0.0.1:3000/Spotify/${folder}/`);
-    let a = await fetch(`${path}/${folder}/`);
+    let a = await fetch(`${folder}/`);
     // console.log(a);
     
     // let a = await fetch(`https://drive.google.com/drive/folders/1GXz5cC-6P8MCRD4R59mFEZjlb6kCVuew?usp=drive_link`);
