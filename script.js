@@ -4,6 +4,7 @@ let curFolder;
 let valumeVal = 0;
 let path ="https://github.com/Sagardharaglkar/Spotify/";
 // console.log(window.location.origin);
+console.log("Push succsess");
 
 const {origin} = window.location;
 // console.log(origin);
