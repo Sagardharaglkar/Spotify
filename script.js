@@ -5,7 +5,7 @@ let valumeVal = 0;
 let path ="https://github.com/Sagardharaglkar/Spotify/tree/30eb22c5fcbceb6fff44b2c6ffd629f24024406e/";
 
 // console.log(window.location.origin);
-console.log("Push succsess5");
+console.log("Push succsess4");
 
 const {origin} = window.location;
 console.log(origin);
@@ -13,61 +13,123 @@ console.log(origin);
 // let path = "https://meek-alpaca-2d9fc7.netlify.app/";
 
 
+// async function getSongs(folder) {
+//     curFolder = folder;
+//     // let a = await fetch(`http://127.0.0.1:3000/Spotify/${folder}/`);
+//     let a = await fetch(`${path}${folder}/`);
+//     // console.log(a);
+    
+//     // let a = await fetch(`https://drive.google.com/drive/folders/1GXz5cC-6P8MCRD4R59mFEZjlb6kCVuew?usp=drive_link`);
+//     let responce = await a.text();
+//     // console.log(responce);
+
+//     let div = document.createElement("div");
+//     div.innerHTML = responce;
+//     let as = div.getElementsByTagName("a");
+
+//     songs = [];
+//     for (let index = 0; index < as.length; index++) {
+//         const element = as[index];
+//         if (element.href.endsWith(".mp3")) {
+//             songs.push(element.href.split(`/${folder}/`)[1]);
+//         }
+//     }
+//     console.log(songs);
+    
+
+//     //show all the songs in the playlist
+//     let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0];
+//     songUL.innerHTML = "";
+//     for (const song of songs) {
+//         // console.log(song.replaceAll("%20", " "));
+
+//         songUL.innerHTML = songUL.innerHTML + `
+//                 <li>  
+//                     <div class="cardInfoFirst">                    
+//                       <img src="img/music.svg" class="invert " alt="">
+//                       <div class="info">
+//                         <div>${song.replaceAll("%20", " ")}</div>
+//                         <div>Song Artist</div>
+//                       </div></div>
+
+
+//                 </li>`;
+
+//     }
+
+//     //Attach an event listener to each song
+//     Array.from(document.querySelector(".songList").getElementsByTagName("li")).forEach(e => {
+//         e.addEventListener("click", element => {
+//             // console.log(e.querySelector(".info").firstElementChild.innerHTML);
+//             playMusic(e.querySelector(".info").firstElementChild.innerHTML.trim());
+
+//         })
+
+//     })
+
+//     return songs;
+// }
+
 async function getSongs(folder) {
     curFolder = folder;
     // let a = await fetch(`http://127.0.0.1:3000/Spotify/${folder}/`);
-    let a = await fetch(`${path}${folder}/`);
-    // console.log(a);
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", `${folder}/`, true);
     
-    // let a = await fetch(`https://drive.google.com/drive/folders/1GXz5cC-6P8MCRD4R59mFEZjlb6kCVuew?usp=drive_link`);
-    let responce = await a.text();
-    // console.log(responce);
-
-    let div = document.createElement("div");
-    div.innerHTML = responce;
-    let as = div.getElementsByTagName("a");
-
-    songs = [];
-    for (let index = 0; index < as.length; index++) {
-        const element = as[index];
-        if (element.href.endsWith(".mp3")) {
-            songs.push(element.href.split(`/${folder}/`)[1]);
+    xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            let response = xhr.responseText;
+            // console.log(response);
+    
+            let div = document.createElement("div");
+            div.innerHTML = response;
+            let as = div.getElementsByTagName("a");
+    
+            let songs = [];
+            for (let index = 0; index < as.length; index++) {
+                const element = as[index];
+                if (element.href.endsWith(".mp3")) {
+                    songs.push(element.href.split(`/${folder}/`)[1]);
+                }
+            }
+            console.log(songs);
+    
+            // Show all the songs in the playlist
+            let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0];
+            songUL.innerHTML = "";
+            for (const song of songs) {
+                // console.log(song.replaceAll("%20", " "));
+    
+                songUL.innerHTML = songUL.innerHTML + `
+                    <li>  
+                        <div class="cardInfoFirst">                    
+                          <img src="img/music.svg" class="invert " alt="">
+                          <div class="info">
+                            <div>${song.replaceAll("%20", " ")}</div>
+                            <div>Song Artist</div>
+                          </div></div>
+                    </li>`;
+            }
+    
+            // Attach an event listener to each song
+            Array.from(document.querySelector(".songList").getElementsByTagName("li")).forEach(e => {
+                e.addEventListener("click", element => {
+                    // console.log(e.querySelector(".info").firstElementChild.innerHTML);
+                    playMusic(e.querySelector(".info").firstElementChild.innerHTML.trim());
+                });
+            });
+    
+            return songs;
+        } else {
+            console.error(`Failed to fetch songs: ${xhr.statusText}`);
         }
-    }
-    console.log(songs);
+    };
     
-
-    //show all the songs in the playlist
-    let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0];
-    songUL.innerHTML = "";
-    for (const song of songs) {
-        // console.log(song.replaceAll("%20", " "));
-
-        songUL.innerHTML = songUL.innerHTML + `
-                <li>  
-                    <div class="cardInfoFirst">                    
-                      <img src="img/music.svg" class="invert " alt="">
-                      <div class="info">
-                        <div>${song.replaceAll("%20", " ")}</div>
-                        <div>Song Artist</div>
-                      </div></div>
-
-
-                </li>`;
-
-    }
-
-    //Attach an event listener to each song
-    Array.from(document.querySelector(".songList").getElementsByTagName("li")).forEach(e => {
-        e.addEventListener("click", element => {
-            // console.log(e.querySelector(".info").firstElementChild.innerHTML);
-            playMusic(e.querySelector(".info").firstElementChild.innerHTML.trim());
-
-        })
-
-    })
-
-    return songs;
+    xhr.onerror = function() {
+        console.error("Network error while fetching songs.");
+    };
+    
+    xhr.send();
 }
 
 function secondsToMinutesSeconds(seconds) {
