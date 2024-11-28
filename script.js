@@ -4,7 +4,7 @@ let curFolder;
 let valumeVal = 0;
 let path ="https://github.com/Sagardharaglkar/Spotify/";
 // console.log(window.location.origin);
-console.log("Push succsess3");
+console.log("Push succsess4");
 
 const {origin} = window.location;
 console.log(origin);
@@ -108,12 +108,15 @@ async function displayAlbums() {
     // let folders =[];
     // Array.from(anchors).forEach(async e => {
     let array = Array.from(anchors);
+    console.log(array);
+    
     for (let index = 0; index < array.length; index++) {
         const e = array[index];
 
-
         if (e.href.includes("songs/")) {
             let folder = e.href.split("/").slice(-2)[0];
+            console.log(folder);
+            
             let a = await fetch(`songs/${folder}/info.json`);
             let responce = await a.json();
             // console.log(responce);
@@ -124,7 +127,7 @@ async function displayAlbums() {
                             <polygon points="25,20 40,30 25,40" fill="black"/>
                           </svg>
                     </div>
-                    <img src="/Spotify/songs/${folder}/cover.jpg" alt="">
+                    <img src="/songs/${folder}/cover.jpg" alt="">
                     <h2>${responce.title}</h2>
                     <p>${responce.description}</p>
                 </div>`
