@@ -2,9 +2,10 @@ let currentSong = new Audio();
 let songs = [];
 let curFolder;
 let valumeVal = 0;
-let path ="https://github.com/Sagardharaglkar/Spotify/";
+let path ="https://github.com/Sagardharaglkar/Spotify/tree/30eb22c5fcbceb6fff44b2c6ffd629f24024406e/";
+
 // console.log(window.location.origin);
-console.log("Push succsess4");
+console.log("Push succsess5");
 
 const {origin} = window.location;
 console.log(origin);
@@ -15,7 +16,7 @@ console.log(origin);
 async function getSongs(folder) {
     curFolder = folder;
     // let a = await fetch(`http://127.0.0.1:3000/Spotify/${folder}/`);
-    let a = await fetch(`${folder}/`);
+    let a = await fetch(`${path}${folder}/`);
     // console.log(a);
     
     // let a = await fetch(`https://drive.google.com/drive/folders/1GXz5cC-6P8MCRD4R59mFEZjlb6kCVuew?usp=drive_link`);
